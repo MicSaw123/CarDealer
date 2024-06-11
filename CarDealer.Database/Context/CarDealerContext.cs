@@ -1,12 +1,17 @@
 ﻿using CarDealer.Application.Interfaces.Database;
 using CarDealer.Database.SeedData;
-using CarDealer.Domain.Entities;
+using CarDealer.Domain.Entities.Address;
+using CarDealer.Domain.Entities.Cars;
+using CarDealer.Domain.Entities.Identity;
+using CarDealer.Domain.Entities.Lisitngs;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarDealer.Database.Context
 {
-    public class CarDealerContext : DbContext, IDbContext
+    public class CarDealerContext : IdentityDbContext<CarDealerUser, CarDealerRole, int>, IDbContext
     {
+
         public CarDealerContext(DbContextOptions<CarDealerContext> options) : base(options)
         {
 
@@ -17,41 +22,30 @@ namespace CarDealer.Database.Context
             var carTypesSeed = new CarTypesSeed();
             var manufacturersSeed = new ManufacturersSeed();
             var modelsSeed = new ModelsSeed();
-            var enginesSeed = new EnginesSeed();
-            var transmissionsSeed = new TransmissionsSeed();
             var generationsSeed = new GenerationsSeed();
+            var transmissionsSeed = new TransmissionsSeed();
             var fuelTypesSeed = new FuelTypesSeed();
-            var carSpecificationsSeed = new CarSpecificationsSeed();
-            var CarsSeed = new CarsSeed();
-
-            modelBuilder.Entity<CarType>().HasData(
-                 carTypesSeed.GetCarTypes()
-                 );
-            modelBuilder.Entity<Manufacturer>().HasData(
-                 manufacturersSeed.GetManufacturers()
-                 );
-            modelBuilder.Entity<Model>().HasData(
-                modelsSeed.GetModels()
-                );
-            modelBuilder.Entity<Engine>().HasData(
-                enginesSeed.GetEngines()
-                );
-            modelBuilder.Entity<Transmission>().HasData(
-                transmissionsSeed.GetTransmissions()
-                );
-            modelBuilder.Entity<FuelType>().HasData(
-               fuelTypesSeed.GetFuelTypes()
-                );
-            modelBuilder.Entity<CarSpecification>().HasData(
-                carSpecificationsSeed.GetCarSpecifications()
-                );
-            modelBuilder.Entity<Generation>().HasData(
-                generationsSeed.GetGenerations()
-                );
-            modelBuilder.Entity<Car>().HasData(
-                CarsSeed.GetCars()
-                );
-
+            var carColorsSeed = new CarColorsSeed();
+            var carConditionsSeed = new CarConditionsSeed();
+            var countriesSeed = new CountriesSeed();
+            var previouslyDamagedSeed = new PreviouslyDamagedSeed();
+            var drivetrainsSeed = new DrivetrainsSeed();
+            var doorQuantitiesSeed = new DoorQuantitiesSeed();
+            var enginesSeed = new EnginesSeed();
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Manufacturer>().HasData(manufacturersSeed.GetManufacturers());
+            modelBuilder.Entity<Model>().HasData(modelsSeed.GetModels());
+            modelBuilder.Entity<Generation>().HasData(generationsSeed.GetGenerations());
+            modelBuilder.Entity<FuelType>().HasData(fuelTypesSeed.GetFuelTypes());
+            modelBuilder.Entity<Transmission>().HasData(transmissionsSeed.GetTransmissions());
+            modelBuilder.Entity<CarType>().HasData(carTypesSeed.GetCarTypes());
+            modelBuilder.Entity<CarColor>().HasData(carColorsSeed.GetCarColors());
+            modelBuilder.Entity<CarCondition>().HasData(carConditionsSeed.GetCarConditions());
+            modelBuilder.Entity<Country>().HasData(countriesSeed.GetCountries());
+            modelBuilder.Entity<PreviouslyDamaged>().HasData(previouslyDamagedSeed.GetPreviouslyDamaged());
+            modelBuilder.Entity<Drivetrain>().HasData(drivetrainsSeed.GetDrivetrains());
+            modelBuilder.Entity<Engine>().HasData(enginesSeed.GetEngines());
+            modelBuilder.Entity<DoorQuantity>().HasData(doorQuantitiesSeed.GetDoorQuantities());
         }
 
         public DbSet<Car> Cars { get; set; }
@@ -71,5 +65,27 @@ namespace CarDealer.Database.Context
         public DbSet<Model> Models { get; set; }
 
         public DbSet<Transmission> Transmissions { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Listing> Listings { get; set; }
+
+        public DbSet<CarColor> CarColors { get; set; }
+
+        public DbSet<DoorQuantity> DoorQuantity { get; set; }
+
+        public DbSet<Drivetrain> Drivetrains { get; set; }
+
+        public DbSet<CarCondition> CarConditions { get; set; }
+
+        public DbSet<IdentifiedVehicles> IdentifiedVehicles { get; set; }
+
+        public DbSet<ListedCar> ListedCars { get; set; }
+
+        public DbSet<ListedCarSpecification> ListedCarSpecification { get; set; }
+
+        public DbSet<PreviouslyDamaged> PreviouslyDamaged { get; set; }
     }
 }

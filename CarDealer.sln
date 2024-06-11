@@ -3,19 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealer", "CarDealer\CarDealer.csproj", "{88E1F10C-9DA4-4422-ADCB-B499B4FB862B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealer", "CarDealer\CarDealer.csproj", "{88E1F10C-9DA4-4422-ADCB-B499B4FB862B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C4902F31-8CE8-4FDC-9E44-AC5A6A091137}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{127D1841-8994-4DD9-B77C-46E125516B3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealer.Domain.Entities", "CarDealer.Domain.Entities\CarDealer.Domain.Entities.csproj", "{3BF7B65B-5811-411C-B9DA-215E3B02B041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealer.Domain.Entities", "CarDealer.Domain.Entities\CarDealer.Domain.Entities.csproj", "{3BF7B65B-5811-411C-B9DA-215E3B02B041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealer.Database", "CarDealer.Database\CarDealer.Database.csproj", "{2BBA895B-AD9F-498F-8425-71F553E3B5D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealer.Database", "CarDealer.Database\CarDealer.Database.csproj", "{2BBA895B-AD9F-498F-8425-71F553E3B5D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{03E27CA9-DB7E-4083-A45E-D7AA076E0A5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealer.Application", "CarDealer.Application\CarDealer.Application.csproj", "{F383BB78-AF1E-461F-9156-0C22BC1197B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealer.Application", "CarDealer.Application\CarDealer.Application.csproj", "{F383BB78-AF1E-461F-9156-0C22BC1197B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealer.Domain.Errors", "CarDealer.Domain.Errors\CarDealer.Domain.Errors.csproj", "{BC66BF22-EAB2-4C57-98FF-CD6C4827F243}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealer.Application.DataTransferObjects", "CarDealer.Application.DataTransferObjects\CarDealer.Application.DataTransferObjects.csproj", "{A1BD8DB6-69D2-40A9-8076-5565840E6275}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{F383BB78-AF1E-461F-9156-0C22BC1197B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F383BB78-AF1E-461F-9156-0C22BC1197B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F383BB78-AF1E-461F-9156-0C22BC1197B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC66BF22-EAB2-4C57-98FF-CD6C4827F243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC66BF22-EAB2-4C57-98FF-CD6C4827F243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC66BF22-EAB2-4C57-98FF-CD6C4827F243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC66BF22-EAB2-4C57-98FF-CD6C4827F243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1BD8DB6-69D2-40A9-8076-5565840E6275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1BD8DB6-69D2-40A9-8076-5565840E6275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1BD8DB6-69D2-40A9-8076-5565840E6275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1BD8DB6-69D2-40A9-8076-5565840E6275}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +59,8 @@ Global
 		{3BF7B65B-5811-411C-B9DA-215E3B02B041} = {127D1841-8994-4DD9-B77C-46E125516B3B}
 		{2BBA895B-AD9F-498F-8425-71F553E3B5D5} = {C4902F31-8CE8-4FDC-9E44-AC5A6A091137}
 		{F383BB78-AF1E-461F-9156-0C22BC1197B2} = {03E27CA9-DB7E-4083-A45E-D7AA076E0A5D}
+		{BC66BF22-EAB2-4C57-98FF-CD6C4827F243} = {127D1841-8994-4DD9-B77C-46E125516B3B}
+		{A1BD8DB6-69D2-40A9-8076-5565840E6275} = {03E27CA9-DB7E-4083-A45E-D7AA076E0A5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8299A0FD-7796-4F94-8FE9-AD19B78F964A}

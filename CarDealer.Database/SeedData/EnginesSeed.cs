@@ -1,4 +1,4 @@
-﻿using CarDealer.Domain.Entities;
+﻿using CarDealer.Domain.Entities.Cars;
 
 namespace CarDealer.Database.SeedData
 {
@@ -13,6 +13,8 @@ namespace CarDealer.Database.SeedData
                     Id = 1,
                     Name = "M113",
                     Cylinders = 8,
+                    Horsepower = 306,
+                    Torque = 460,
                     Displacement = 4999,
                     FuelTypeId = 1
                 },
@@ -21,6 +23,8 @@ namespace CarDealer.Database.SeedData
                     Id = 2,
                     Name = "M273",
                     Cylinders = 8,
+                    Horsepower = 388,
+                    Torque = 530,
                     Displacement = 5461,
                     FuelTypeId = 1
                 }

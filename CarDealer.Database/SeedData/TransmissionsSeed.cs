@@ -1,6 +1,4 @@
-﻿
-
-using CarDealer.Domain.Entities;
+﻿using CarDealer.Domain.Entities.Cars;
 
 namespace CarDealer.Database.SeedData
 {
@@ -13,7 +11,12 @@ namespace CarDealer.Database.SeedData
                 new Transmission
                 {
                     Id = 1,
-                    Type = "Automatic"
+                    Name = "Automatic"
+                },
+                new Transmission
+                {
+                    Id = 2,
+                    Name = "Manual"
                 }
             };
         }
