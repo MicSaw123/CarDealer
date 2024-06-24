@@ -37,8 +37,14 @@ namespace CarDealer.Application.Repositories.Generic
             return await queryable.ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(int id, IEnumerable<Expression<Func<TEntity, object>>> includes = default)
         {
+            IQueryable<TEntity> queryable = _entities.AsQueryable();
+            if (includes is not null && includes.Any())
+            {
+                queryable = includes.Aggregate(queryable, (current, include) => current.Include(include));
+            }
+            await queryable.ToListAsync();
             return await _entities.SingleOrDefaultAsync(t => t.Id == id);
         }
 
@@ -56,6 +62,5 @@ namespace CarDealer.Application.Repositories.Generic
         {
             _entities.Update(entity);
         }
-
     }
 }

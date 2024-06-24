@@ -1,7 +1,6 @@
 ﻿using CarDealer.Domain.Entities.Base;
 using CarDealer.Domain.Entities.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarDealer.Domain.Entities.Lisitngs
 {
@@ -27,15 +26,12 @@ namespace CarDealer.Domain.Entities.Lisitngs
 
         public int ListedCarId { get; set; }
 
-        [NotMapped]
-        public ListedCar ListedCars { get; set; }
+        public ListedCar ListedCar { get; set; }
 
         [Required]
 
         public int IdentifiedVehiclesId { get; set; }
 
-        [NotMapped]
         public IdentifiedVehicles IdentifiedVehicles { get; set; }
-
     }
 }

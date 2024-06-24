@@ -3,13 +3,16 @@ using CarDealer.Application.Interfaces.Repositories.Cars;
 using CarDealer.Application.Interfaces.Repositories.Listings;
 using CarDealer.Application.Interfaces.Services.Address;
 using CarDealer.Application.Interfaces.Services.Cars;
+using CarDealer.Application.Interfaces.Services.GetBasicProperties;
 using CarDealer.Application.Interfaces.Services.Identity;
 using CarDealer.Application.Interfaces.Services.Listing;
 using CarDealer.Application.Repositories.Address;
 using CarDealer.Application.Repositories.Cars;
 using CarDealer.Application.Repositories.Listings;
 using CarDealer.Application.Services.Address;
+using CarDealer.Application.Services.AutoMapper;
 using CarDealer.Application.Services.Cars;
+using CarDealer.Application.Services.GetBasicProperties;
 using CarDealer.Application.Services.Identity;
 using CarDealer.Application.Services.Listings;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,8 +30,7 @@ namespace CarDealer.Application
 
         private static void AddRepositories(IServiceCollection services)
         {
-            services.AddScoped<ICarRepository, CarRepository>();
-            services.AddScoped<ICarSpecificationRepository, CarSpecificationRepository>();
+            services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IGenerationRepository, GenerationRepository>();
             services.AddScoped<IModelRepository, ModelRepository>();
             services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
@@ -54,14 +56,12 @@ namespace CarDealer.Application
             services.AddDistributedMemoryCache();
             services.AddSingleton<ITokenManagerService, TokenManagerService>();
             services.AddScoped<IIdentityService, IdentityService>();
-            services.AddScoped<ICarService, CarService>();
-            services.AddScoped<ICarSpecificationService, CarSpecificationService>();
             services.AddScoped<IGenerationService, GenerationService>();
             services.AddScoped<IModelService, ModelService>();
             services.AddScoped<IManufacturerService, ManufacturerService>();
             services.AddScoped<ITransmissionService, TransmissionService>();
             services.AddScoped<IEngineService, EngineService>();
-            services.AddScoped<IFuelType, FuelTypeService>();
+            services.AddScoped<IFuelTypeService, FuelTypeService>();
             services.AddScoped<ICarTypeService, CarTypeService>();
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IImageService, ImageService>();
@@ -74,6 +74,7 @@ namespace CarDealer.Application
             services.AddScoped<ICarColorService, CarColorService>();
             services.AddScoped<ICarConditionService, CarConditionService>();
             services.AddScoped<IPreviouslyDamagedService, PreviouslyDamagedService>();
+            services.AddScoped<IGetBasicPropertiesService, GetBasicPropertiesService>();
         }
     }
 }

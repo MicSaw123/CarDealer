@@ -1,6 +1,7 @@
-﻿using CarDealer.Application.Interfaces.Repositories.Cars;
+﻿using AutoMapper;
+using CarDealer.Application.DataTransferObjects.Dtos.Cars;
+using CarDealer.Application.Interfaces.Repositories.Cars;
 using CarDealer.Application.Interfaces.Services.Cars;
-using CarDealer.Domain.Entities.Cars;
 using CarDealer.Domain.Errors;
 
 namespace CarDealer.Application.Services.Cars
@@ -8,30 +9,23 @@ namespace CarDealer.Application.Services.Cars
     public class CarColorService : ICarColorService
     {
         private readonly ICarColorRepository _carColorRepository;
+        private readonly IMapper _mapper;
 
-        public CarColorService(ICarColorRepository carColorRepository)
+        public CarColorService(ICarColorRepository carColorRepository, IMapper mapper)
         {
             _carColorRepository = carColorRepository;
+            _mapper = mapper;
         }
 
-        public async Task<RequestResult<CarColor>> GetCarColorById(int carColorId)
+        public async Task<RequestResult<IEnumerable<CarColorDto>>> GetCarColors()
         {
-            var result = await _carColorRepository.GetByIdAsync(carColorId);
-            if (result is null)
+            var carColors = await _carColorRepository.GetAllAsync();
+            IEnumerable<CarColorDto> carColorDtos = _mapper.Map<IEnumerable<CarColorDto>>(carColors);
+            if (carColorDtos is null)
             {
-                return RequestResult<CarColor>.Failure(Error.ErrorUnknown);
+                return RequestResult<IEnumerable<CarColorDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<CarColor>.Success(result);
-        }
-
-        public async Task<RequestResult<IEnumerable<CarColor>>> GetCarColors()
-        {
-            var result = await _carColorRepository.GetAllAsync();
-            if (result is null)
-            {
-                return RequestResult<IEnumerable<CarColor>>.Failure(Error.ErrorUnknown);
-            }
-            return RequestResult<IEnumerable<CarColor>>.Success(result);
+            return RequestResult<IEnumerable<CarColorDto>>.Success(carColorDtos);
         }
     }
 }

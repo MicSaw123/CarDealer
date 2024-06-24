@@ -1,6 +1,7 @@
-﻿using CarDealer.Application.Interfaces.Repositories.Cars;
+﻿using AutoMapper;
+using CarDealer.Application.DataTransferObjects.Dtos.Cars;
+using CarDealer.Application.Interfaces.Repositories.Cars;
 using CarDealer.Application.Interfaces.Services.Cars;
-using CarDealer.Domain.Entities.Cars;
 using CarDealer.Domain.Errors;
 
 namespace CarDealer.Application.Services.Cars
@@ -8,30 +9,23 @@ namespace CarDealer.Application.Services.Cars
     public class DoorQuantityService : IDoorQuantityService
     {
         private readonly IDoorQuantityRepository _doorQuantityRepository;
+        private readonly IMapper _mapper;
 
-        public DoorQuantityService(IDoorQuantityRepository doorQuantityRepository)
+        public DoorQuantityService(IDoorQuantityRepository doorQuantityRepository, IMapper mapper)
         {
             _doorQuantityRepository = doorQuantityRepository;
+            _mapper = mapper;
         }
 
-        public async Task<RequestResult<IEnumerable<DoorQuantity>>> GetDoorQuantities()
+        public async Task<RequestResult<IEnumerable<DoorQuantityDto>>> GetDoorQuantities()
         {
-            var result = await _doorQuantityRepository.GetAllAsync();
-            if (result is null)
+            var doorQuantities = await _doorQuantityRepository.GetAllAsync();
+            IEnumerable<DoorQuantityDto> doorQuantityDtos = _mapper.Map<IEnumerable<DoorQuantityDto>>(doorQuantities);
+            if (doorQuantityDtos is null)
             {
-                return RequestResult<IEnumerable<DoorQuantity>>.Failure(Error.ErrorUnknown);
+                return RequestResult<IEnumerable<DoorQuantityDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<IEnumerable<DoorQuantity>>.Success(result);
-        }
-
-        public async Task<RequestResult<DoorQuantity>> GetDoorQuantityById(int manufacturerId)
-        {
-            var result = await _doorQuantityRepository.GetByIdAsync(manufacturerId);
-            if (result is null)
-            {
-                return RequestResult<DoorQuantity>.Failure(Error.ErrorUnknown);
-            }
-            return RequestResult<DoorQuantity>.Success(result);
+            return RequestResult<IEnumerable<DoorQuantityDto>>.Success(doorQuantityDtos);
         }
     }
 }

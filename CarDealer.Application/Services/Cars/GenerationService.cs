@@ -1,6 +1,7 @@
-﻿using CarDealer.Application.Interfaces.Repositories.Cars;
+﻿using AutoMapper;
+using CarDealer.Application.DataTransferObjects.Dtos.Cars;
+using CarDealer.Application.Interfaces.Repositories.Cars;
 using CarDealer.Application.Interfaces.Services.Cars;
-using CarDealer.Domain.Entities.Cars;
 using CarDealer.Domain.Errors;
 
 namespace CarDealer.Application.Services.Cars
@@ -8,29 +9,23 @@ namespace CarDealer.Application.Services.Cars
     public class GenerationService : IGenerationService
     {
         private readonly IGenerationRepository _generationRepository;
+        private readonly IMapper _mapper;
 
-        public GenerationService(IGenerationRepository generationRepository)
+        public GenerationService(IGenerationRepository generationRepository, IMapper mapper)
         {
             _generationRepository = generationRepository;
-        }
-        public async Task<RequestResult<Generation>> GetGenerationById(int generationId)
-        {
-            var generation = await _generationRepository.GetByIdAsync(generationId);
-            if (generation == null)
-            {
-                return RequestResult<Generation>.Failure(Error.ErrorUnknown);
-            }
-            return RequestResult<Generation>.Success(generation);
+            _mapper = mapper;
         }
 
-        public async Task<RequestResult<IEnumerable<Generation>>> GetGenerationsByModelIdAsync(int modelId, CancellationToken cancellationToken = default)
+        public async Task<RequestResult<IEnumerable<GenerationDto>>> GetGenerationsByModelIdAsync(int modelId, CancellationToken cancellationToken = default)
         {
             var generationsByModelId = await _generationRepository.GetGenerationByModelIdAsync(modelId, cancellationToken);
+            IEnumerable<GenerationDto> generationDtos = _mapper.Map<IEnumerable<GenerationDto>>(generationsByModelId);
             if (generationsByModelId is null)
             {
-                return RequestResult<IEnumerable<Generation>>.Failure(Error.ErrorUnknown);
+                return RequestResult<IEnumerable<GenerationDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<IEnumerable<Generation>>.Success(generationsByModelId);
+            return RequestResult<IEnumerable<GenerationDto>>.Success(generationDtos);
         }
     }
 }

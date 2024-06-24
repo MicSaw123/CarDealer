@@ -30,13 +30,5 @@ namespace CarDealer.Controllers.Address
             var result = await _addressService.GetCityByCountryId(countryId, cancellationToken);
             return CreateResponse(result);
         }
-
-        [HttpGet("ZipCode")]
-
-        public async Task<IActionResult> GetZipCodesByCityId(int cityId)
-        {
-            var result = await _addressService.GetZipCodeByCityId(cityId);
-            return CreateResponse(result);
-        }
     }
 }

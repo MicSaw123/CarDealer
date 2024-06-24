@@ -32,6 +32,7 @@ namespace CarDealer.Database.Context
             var drivetrainsSeed = new DrivetrainsSeed();
             var doorQuantitiesSeed = new DoorQuantitiesSeed();
             var enginesSeed = new EnginesSeed();
+            var citiesSeed = new CitiesSeed();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Manufacturer>().HasData(manufacturersSeed.GetManufacturers());
             modelBuilder.Entity<Model>().HasData(modelsSeed.GetModels());
@@ -46,11 +47,8 @@ namespace CarDealer.Database.Context
             modelBuilder.Entity<Drivetrain>().HasData(drivetrainsSeed.GetDrivetrains());
             modelBuilder.Entity<Engine>().HasData(enginesSeed.GetEngines());
             modelBuilder.Entity<DoorQuantity>().HasData(doorQuantitiesSeed.GetDoorQuantities());
+            modelBuilder.Entity<City>().HasData(citiesSeed.GetCities());
         }
-
-        public DbSet<Car> Cars { get; set; }
-
-        public DbSet<CarSpecification> CarsSpecifications { get; set; }
 
         public DbSet<CarType> CarTypes { get; set; }
 

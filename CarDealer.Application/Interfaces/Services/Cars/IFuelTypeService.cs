@@ -1,11 +1,9 @@
-﻿using CarDealer.Domain.Entities.Cars;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Cars;
 
 namespace CarDealer.Application.Interfaces.Services.Cars
 {
-    public interface IFuelType
+    public interface IFuelTypeService
     {
-        public Task<FuelType> GetFuelTypeById(int fuelTypeId);
-
-        public Task<RequestResult<IEnumerable<FuelType>>> GetFuelTypes();
+        public Task<RequestResult<IEnumerable<FuelTypeDto>>> GetFuelTypeDtos();
     }
 }

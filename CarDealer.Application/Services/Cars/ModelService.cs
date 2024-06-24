@@ -1,6 +1,7 @@
-﻿using CarDealer.Application.Interfaces.Repositories.Cars;
+﻿using AutoMapper;
+using CarDealer.Application.DataTransferObjects.Dtos.Cars;
+using CarDealer.Application.Interfaces.Repositories.Cars;
 using CarDealer.Application.Interfaces.Services.Cars;
-using CarDealer.Domain.Entities.Cars;
 using CarDealer.Domain.Errors;
 
 namespace CarDealer.Application.Services.Cars
@@ -8,29 +9,23 @@ namespace CarDealer.Application.Services.Cars
     public class ModelService : IModelService
     {
         private readonly IModelRepository _modelRepository;
+        private readonly IMapper _mapper;
 
-        public ModelService(IModelRepository modelRepository)
+        public ModelService(IModelRepository modelRepository, IMapper mapper)
         {
             _modelRepository = modelRepository;
-        }
-        public async Task<RequestResult<Model>> GetModelById(int id)
-        {
-            var model = await _modelRepository.GetByIdAsync(id);
-            if (model is null)
-            {
-                return RequestResult<Model>.Failure(Error.ErrorUnknown);
-            }
-            return RequestResult<Model>.Success(model);
+            _mapper = mapper;
         }
 
-        public async Task<RequestResult<IEnumerable<Model>>> GetModelsByManufacturerIdAsync(int manufacturerId, CancellationToken cancellationToken = default)
+        public async Task<RequestResult<IEnumerable<ModelDto>>> GetModelDtosByManufacturerId(int manufacturerId, CancellationToken cancellationToken = default)
         {
             var modelsByManufacturer = await _modelRepository.GetModelsByManufacturerIdAsync(manufacturerId, cancellationToken);
-            if (modelsByManufacturer is null)
+            IEnumerable<ModelDto> modelDtos = _mapper.Map<IEnumerable<ModelDto>>(modelsByManufacturer);
+            if (modelDtos is null)
             {
-                return RequestResult<IEnumerable<Model>>.Failure(Error.ErrorUnknown);
+                return RequestResult<IEnumerable<ModelDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<IEnumerable<Model>>.Success(modelsByManufacturer);
+            return RequestResult<IEnumerable<ModelDto>>.Success(modelDtos);
         }
     }
 }

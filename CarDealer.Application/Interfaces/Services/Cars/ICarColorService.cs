@@ -1,11 +1,9 @@
-﻿using CarDealer.Domain.Entities.Cars;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Cars;
 
 namespace CarDealer.Application.Interfaces.Services.Cars
 {
     public interface ICarColorService
     {
-        public Task<RequestResult<CarColor>> GetCarColorById(int carColorId);
-
-        public Task<RequestResult<IEnumerable<CarColor>>> GetCarColors();
+        public Task<RequestResult<IEnumerable<CarColorDto>>> GetCarColors();
     }
 }

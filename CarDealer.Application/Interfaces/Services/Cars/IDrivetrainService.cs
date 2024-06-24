@@ -1,11 +1,9 @@
-﻿using CarDealer.Domain.Entities.Cars;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Cars;
 
 namespace CarDealer.Application.Interfaces.Services.Cars
 {
     public interface IDrivetrainService
     {
-        public Task<RequestResult<Drivetrain>> GetDrivetrainById(int drivetrainId);
-
-        public Task<RequestResult<IEnumerable<Drivetrain>>> GetDrivetrains();
+        public Task<RequestResult<IEnumerable<DrivetrainDto>>> GetDrivetrains();
     }
 }

@@ -1,11 +1,9 @@
-﻿using CarDealer.Domain.Entities.Cars;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Cars;
 
 namespace CarDealer.Application.Interfaces.Services.Cars
 {
     public interface ITransmissionService
     {
-        public Task<RequestResult<Transmission>> GetTransmissionById(int transmissionId);
-
-        public Task<RequestResult<IEnumerable<Transmission>>> GetTransmissions();
+        public Task<RequestResult<IEnumerable<TransmissionDto>>> GetTransmissions();
     }
 }

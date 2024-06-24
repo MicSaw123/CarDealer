@@ -6,7 +6,7 @@ namespace CarDealer.Application.Interfaces.Repositories.Generic
     {
         Task<IEnumerable<T>> GetAllAsync(IEnumerable<Expression<Func<T, object>>> includes = default);
 
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(int id, IEnumerable<Expression<Func<T, object>>> includes = default);
 
         Task Add(T entity);
 

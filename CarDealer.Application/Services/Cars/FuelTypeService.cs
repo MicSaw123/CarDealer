@@ -1,33 +1,31 @@
-﻿using CarDealer.Application.Interfaces.Repositories.Cars;
+﻿using AutoMapper;
+using CarDealer.Application.DataTransferObjects.Dtos.Cars;
+using CarDealer.Application.Interfaces.Repositories.Cars;
 using CarDealer.Application.Interfaces.Services.Cars;
-using CarDealer.Domain.Entities.Cars;
 using CarDealer.Domain.Errors;
 
 namespace CarDealer.Application.Services.Cars
 {
-    public class FuelTypeService : IFuelType
+    public class FuelTypeService : IFuelTypeService
     {
         private readonly IFuelTypeRepository _fuelTypeRepository;
+        private readonly IMapper _mapper;
 
-        public FuelTypeService(IFuelTypeRepository fuelTypeRepository)
+        public FuelTypeService(IFuelTypeRepository fuelTypeRepository, IMapper mapper)
         {
             _fuelTypeRepository = fuelTypeRepository;
+            _mapper = mapper;
         }
 
-        public async Task<RequestResult<IEnumerable<FuelType>>> GetFuelTypes()
+        public async Task<RequestResult<IEnumerable<FuelTypeDto>>> GetFuelTypeDtos()
         {
             var fuelTypes = await _fuelTypeRepository.GetAllAsync();
-            if (fuelTypes is null)
+            IEnumerable<FuelTypeDto> fuelTypeDtos = _mapper.Map<IEnumerable<FuelTypeDto>>(fuelTypes);
+            if (fuelTypeDtos is null)
             {
-                return RequestResult<IEnumerable<FuelType>>.Failure(Error.ErrorUnknown);
+                return RequestResult<IEnumerable<FuelTypeDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<IEnumerable<FuelType>>.Success(fuelTypes);
-        }
-
-        public async Task<FuelType> GetFuelTypeById(int fuelTypeId)
-        {
-            var fuelType = await _fuelTypeRepository.GetByIdAsync(fuelTypeId);
-            return fuelType;
+            return RequestResult<IEnumerable<FuelTypeDto>>.Success(fuelTypeDtos);
         }
     }
 }

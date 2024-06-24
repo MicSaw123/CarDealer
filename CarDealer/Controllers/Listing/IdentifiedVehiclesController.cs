@@ -1,6 +1,6 @@
-﻿using CarDealer.Application.Interfaces.Services.Listing;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto;
+using CarDealer.Application.Interfaces.Services.Listing;
 using CarDealer.Controllers.Base;
-using CarDealer.Domain.Entities.Lisitngs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealer.Controllers.Listing
@@ -16,15 +16,8 @@ namespace CarDealer.Controllers.Listing
             _identifiedVehiclesService = identifiedVehiclesService;
         }
 
-        [HttpGet("GetIdentifiedVehicles")]
-        public async Task<IActionResult> GetIdentifiedVehicles()
-        {
-            var result = await _identifiedVehiclesService.GetIdentifiedVehicles();
-            return CreateResponse(result);
-        }
-
         [HttpPost("AddIdentifiedVehicle")]
-        public async Task<IActionResult> AddIdentifiedVehicle(IdentifiedVehicles entity)
+        public async Task<IActionResult> AddIdentifiedVehicle(AddIdentifiedVehiclesDto entity)
         {
             var result = await _identifiedVehiclesService.AddIdentifiedVehicle(entity);
             return CreateResponse(result);
@@ -33,6 +26,13 @@ namespace CarDealer.Controllers.Listing
         public async Task<IActionResult> DeleteIdentifiedVehicle(int id)
         {
             var result = await _identifiedVehiclesService.DeleteIdentifiedVehicle(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("GetIdentifiedVehicleById")]
+        public async Task<IActionResult> GetIdentifiedVehicleById(int id)
+        {
+            var result = await _identifiedVehiclesService.GetIdentifiedVehicleId(id);
             return CreateResponse(result);
         }
 

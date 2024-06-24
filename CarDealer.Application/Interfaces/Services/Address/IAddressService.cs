@@ -1,13 +1,12 @@
-﻿using CarDealer.Domain.Entities.Address;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Address;
 
 namespace CarDealer.Application.Interfaces.Services.Address
 {
     public interface IAddressService
     {
-        public Task<RequestResult<IEnumerable<Country>>> GetCountries();
+        public Task<RequestResult<IEnumerable<CountryDto>>> GetCountries();
 
-        public Task<RequestResult<IEnumerable<City>>> GetCityByCountryId(int countryId, CancellationToken cancellationToken = default);
+        public Task<RequestResult<IEnumerable<CityDto>>> GetCityByCountryId(int countryId, CancellationToken cancellationToken = default);
 
-        public Task<RequestResult<IEnumerable<City>>> GetZipCodeByCityId(int cityId, CancellationToken cancellationToken = default);
     }
 }

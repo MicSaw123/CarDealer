@@ -1,5 +1,4 @@
-﻿
-using CarDealer.Application.DataTransferObjects.Dtos.Listing;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto;
 using CarDealer.Application.Interfaces.Services.Listing;
 using CarDealer.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +11,7 @@ namespace CarDealer.Controllers.Listing
     {
         private readonly IListingService _listingService;
 
-        public ListingController(IListingService listingService,
-            IImageService imageService)
+        public ListingController(IListingService listingService)
         {
             _listingService = listingService;
         }
@@ -26,16 +24,36 @@ namespace CarDealer.Controllers.Listing
         }
 
         [HttpPost("AddListing")]
-        public async Task<IActionResult> AddListing(ListingDto listingDto,
-           [FromForm] List<IFormFile> images)
+        public async Task<IActionResult> AddListing(AddListingDto listingDto)
         {
-            return CreateResponse(await _listingService.AddListing(listingDto, images));
+            return CreateResponse(await _listingService.AddListing(listingDto));
         }
 
         [HttpDelete("DeleteListing")]
         public async Task<IActionResult> DeleteListing(int id)
         {
             var result = await _listingService.DeleteListing(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("GetListingById")]
+        public async Task<IActionResult> GetListingById(int id)
+        {
+            var result = await _listingService.GetListingById(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("GetListingsBySellerId")]
+        public async Task<IActionResult> GetListingsBySellerId(int id)
+        {
+            var result = await _listingService.GetListingsBySellerId(id);
+            return CreateResponse(result);
+        }
+
+        [HttpPut("UpdateListing")]
+        public async Task<IActionResult> UpdateListing(AddListingDto addListingDto)
+        {
+            var result = await _listingService.UpdateListing(addListingDto);
             return CreateResponse(result);
         }
     }

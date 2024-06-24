@@ -1,6 +1,7 @@
-﻿using CarDealer.Application.Interfaces.Repositories.Cars;
+﻿using AutoMapper;
+using CarDealer.Application.DataTransferObjects.Dtos.Cars;
+using CarDealer.Application.Interfaces.Repositories.Cars;
 using CarDealer.Application.Interfaces.Services.Cars;
-using CarDealer.Domain.Entities.Cars;
 using CarDealer.Domain.Errors;
 
 namespace CarDealer.Application.Services.Cars
@@ -8,30 +9,23 @@ namespace CarDealer.Application.Services.Cars
     public class DrivetrainService : IDrivetrainService
     {
         private readonly IDrivetrainRepository _drivetrainRepository;
+        private readonly IMapper _mapper;
 
-        public DrivetrainService(IDrivetrainRepository drivetrainRepository)
+        public DrivetrainService(IDrivetrainRepository drivetrainRepository, IMapper mapper)
         {
             _drivetrainRepository = drivetrainRepository;
+            _mapper = mapper;
         }
 
-        public async Task<RequestResult<Drivetrain>> GetDrivetrainById(int drivetrainId)
+        public async Task<RequestResult<IEnumerable<DrivetrainDto>>> GetDrivetrains()
         {
-            var result = await _drivetrainRepository.GetByIdAsync(drivetrainId);
-            if (result is null)
+            var drivetrains = await _drivetrainRepository.GetAllAsync();
+            IEnumerable<DrivetrainDto> drivetrainDtos = _mapper.Map<IEnumerable<DrivetrainDto>>(drivetrains);
+            if (drivetrainDtos is null)
             {
-                return RequestResult<Drivetrain>.Failure(Error.ErrorUnknown);
+                return RequestResult<IEnumerable<DrivetrainDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<Drivetrain>.Success(result);
-        }
-
-        public async Task<RequestResult<IEnumerable<Drivetrain>>> GetDrivetrains()
-        {
-            var result = await _drivetrainRepository.GetAllAsync();
-            if (result is null)
-            {
-                return RequestResult<IEnumerable<Drivetrain>>.Failure(Error.ErrorUnknown);
-            }
-            return RequestResult<IEnumerable<Drivetrain>>.Success(result);
+            return RequestResult<IEnumerable<DrivetrainDto>>.Success(drivetrainDtos);
         }
     }
 }

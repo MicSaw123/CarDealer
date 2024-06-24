@@ -1,6 +1,6 @@
-﻿using CarDealer.Application.Interfaces.Services.Listing;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto;
+using CarDealer.Application.Interfaces.Services.Listing;
 using CarDealer.Controllers.Base;
-using CarDealer.Domain.Entities.Lisitngs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealer.Controllers.Listing
@@ -16,15 +16,8 @@ namespace CarDealer.Controllers.Listing
             _listedCarService = listedCarService;
         }
 
-        [HttpGet("GetListedCars")]
-        public async Task<IActionResult> GetListedCars()
-        {
-            var result = await _listedCarService.GetListedCars();
-            return CreateResponse(result);
-        }
-
         [HttpPost("AddListedCar")]
-        public async Task<IActionResult> AddListedCar(ListedCar entity)
+        public async Task<IActionResult> AddListedCar(AddListedCarDto entity)
         {
             var result = await _listedCarService.AddListedCar(entity);
             return CreateResponse(result);
@@ -34,6 +27,13 @@ namespace CarDealer.Controllers.Listing
         public async Task<IActionResult> DeleteListedCar(int id)
         {
             var result = await _listedCarService.DeleteListedCar(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("GetListedCarById")]
+        public async Task<IActionResult> GetListedCarById(int id)
+        {
+            var result = await _listedCarService.GetListedCarById(id);
             return CreateResponse(result);
         }
     }

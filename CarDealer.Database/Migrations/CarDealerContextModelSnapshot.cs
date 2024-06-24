@@ -46,6 +46,22 @@ namespace CarDealer.Database.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1,
+                            Name = "Koronowo",
+                            ZipCode = "86-010"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryId = 1,
+                            Name = "Bydgoszcz",
+                            ZipCode = "85-008"
+                        });
                 });
 
             modelBuilder.Entity("CarDealer.Domain.Entities.Address.Country", b =>
@@ -115,29 +131,6 @@ namespace CarDealer.Database.Migrations
                             Id = 10,
                             Name = "Norway"
                         });
-                });
-
-            modelBuilder.Entity("CarDealer.Domain.Entities.Cars.Car", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CarTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenerationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarTypeId");
-
-                    b.HasIndex("GenerationId");
-
-                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("CarDealer.Domain.Entities.Cars.CarColor", b =>
@@ -241,39 +234,6 @@ namespace CarDealer.Database.Migrations
                             Id = 3,
                             Name = "Damaged"
                         });
-                });
-
-            modelBuilder.Entity("CarDealer.Domain.Entities.Cars.CarSpecification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DrivetrainId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EngineId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenerationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TransmissionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DrivetrainId");
-
-                    b.HasIndex("EngineId");
-
-                    b.HasIndex("GenerationId");
-
-                    b.HasIndex("TransmissionId");
-
-                    b.ToTable("CarsSpecifications");
                 });
 
             modelBuilder.Entity("CarDealer.Domain.Entities.Cars.CarType", b =>
@@ -918,6 +878,10 @@ namespace CarDealer.Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryOfOriginId");
+
+                    b.HasIndex("PreviouslyDamagedId");
+
                     b.ToTable("IdentifiedVehicles");
                 });
 
@@ -932,7 +896,7 @@ namespace CarDealer.Database.Migrations
                     b.Property<int>("CarColorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ConditionId")
+                    b.Property<int>("CarConditionId")
                         .HasColumnType("int");
 
                     b.Property<string>("LicensePlate")
@@ -949,6 +913,12 @@ namespace CarDealer.Database.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarColorId");
+
+                    b.HasIndex("CarConditionId");
+
+                    b.HasIndex("ListedCarSpecificationId");
 
                     b.ToTable("ListedCars");
                 });
@@ -980,6 +950,18 @@ namespace CarDealer.Database.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarTypeId");
+
+                    b.HasIndex("DoorQuantityId");
+
+                    b.HasIndex("DrivetrainId");
+
+                    b.HasIndex("EngineId");
+
+                    b.HasIndex("GenerationId");
+
+                    b.HasIndex("TransmissionId");
 
                     b.ToTable("ListedCarSpecification");
                 });
@@ -1016,6 +998,10 @@ namespace CarDealer.Database.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdentifiedVehiclesId");
+
+                    b.HasIndex("ListedCarId");
 
                     b.HasIndex("SellerId");
 
@@ -1136,60 +1122,6 @@ namespace CarDealer.Database.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("CarDealer.Domain.Entities.Cars.Car", b =>
-                {
-                    b.HasOne("CarDealer.Domain.Entities.Cars.CarType", "CarType")
-                        .WithMany()
-                        .HasForeignKey("CarTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarDealer.Domain.Entities.Cars.Generation", "Generation")
-                        .WithMany()
-                        .HasForeignKey("GenerationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CarType");
-
-                    b.Navigation("Generation");
-                });
-
-            modelBuilder.Entity("CarDealer.Domain.Entities.Cars.CarSpecification", b =>
-                {
-                    b.HasOne("CarDealer.Domain.Entities.Cars.Drivetrain", "Drivetrain")
-                        .WithMany()
-                        .HasForeignKey("DrivetrainId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarDealer.Domain.Entities.Cars.Engine", "Engine")
-                        .WithMany()
-                        .HasForeignKey("EngineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarDealer.Domain.Entities.Cars.Generation", "Generation")
-                        .WithMany()
-                        .HasForeignKey("GenerationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarDealer.Domain.Entities.Cars.Transmission", "Transmission")
-                        .WithMany()
-                        .HasForeignKey("TransmissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Drivetrain");
-
-                    b.Navigation("Engine");
-
-                    b.Navigation("Generation");
-
-                    b.Navigation("Transmission");
-                });
-
             modelBuilder.Entity("CarDealer.Domain.Entities.Cars.Engine", b =>
                 {
                     b.HasOne("CarDealer.Domain.Entities.Cars.FuelType", "FuelType")
@@ -1223,13 +1155,126 @@ namespace CarDealer.Database.Migrations
                     b.Navigation("Manufacturer");
                 });
 
+            modelBuilder.Entity("CarDealer.Domain.Entities.Lisitngs.IdentifiedVehicles", b =>
+                {
+                    b.HasOne("CarDealer.Domain.Entities.Address.Country", "CountryOfOrigin")
+                        .WithMany()
+                        .HasForeignKey("CountryOfOriginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Cars.PreviouslyDamaged", "PreviouslyDamaged")
+                        .WithMany()
+                        .HasForeignKey("PreviouslyDamagedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CountryOfOrigin");
+
+                    b.Navigation("PreviouslyDamaged");
+                });
+
+            modelBuilder.Entity("CarDealer.Domain.Entities.Lisitngs.ListedCar", b =>
+                {
+                    b.HasOne("CarDealer.Domain.Entities.Cars.CarColor", "CarColor")
+                        .WithMany()
+                        .HasForeignKey("CarColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Cars.CarCondition", "CarCondition")
+                        .WithMany()
+                        .HasForeignKey("CarConditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Lisitngs.ListedCarSpecification", "ListedCarSpecification")
+                        .WithMany()
+                        .HasForeignKey("ListedCarSpecificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CarColor");
+
+                    b.Navigation("CarCondition");
+
+                    b.Navigation("ListedCarSpecification");
+                });
+
+            modelBuilder.Entity("CarDealer.Domain.Entities.Lisitngs.ListedCarSpecification", b =>
+                {
+                    b.HasOne("CarDealer.Domain.Entities.Cars.CarType", "CarType")
+                        .WithMany()
+                        .HasForeignKey("CarTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Cars.DoorQuantity", "DoorQuantity")
+                        .WithMany()
+                        .HasForeignKey("DoorQuantityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Cars.Drivetrain", "Drivetrain")
+                        .WithMany()
+                        .HasForeignKey("DrivetrainId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Cars.Engine", "Engine")
+                        .WithMany()
+                        .HasForeignKey("EngineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Cars.Generation", "Generation")
+                        .WithMany()
+                        .HasForeignKey("GenerationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Cars.Transmission", "Transmission")
+                        .WithMany()
+                        .HasForeignKey("TransmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CarType");
+
+                    b.Navigation("DoorQuantity");
+
+                    b.Navigation("Drivetrain");
+
+                    b.Navigation("Engine");
+
+                    b.Navigation("Generation");
+
+                    b.Navigation("Transmission");
+                });
+
             modelBuilder.Entity("CarDealer.Domain.Entities.Lisitngs.Listing", b =>
                 {
+                    b.HasOne("CarDealer.Domain.Entities.Lisitngs.IdentifiedVehicles", "IdentifiedVehicles")
+                        .WithMany()
+                        .HasForeignKey("IdentifiedVehiclesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarDealer.Domain.Entities.Lisitngs.ListedCar", "ListedCar")
+                        .WithMany()
+                        .HasForeignKey("ListedCarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CarDealer.Domain.Entities.Identity.CarDealerUser", "Seller")
                         .WithMany()
                         .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("IdentifiedVehicles");
+
+                    b.Navigation("ListedCar");
 
                     b.Navigation("Seller");
                 });

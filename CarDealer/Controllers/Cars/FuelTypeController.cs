@@ -10,18 +10,18 @@ namespace CarDealer.Controllers.Cars
     [ApiController]
     public class FuelTypeController : ApiControllerBase
     {
-        private readonly IFuelType _fuelType;
+        private readonly IFuelTypeService _fuelTypeService;
 
-        public FuelTypeController(IFuelType fuelType)
+        public FuelTypeController(IFuelTypeService fuelTypeService)
         {
-            _fuelType = fuelType;
+            _fuelTypeService = fuelTypeService;
         }
+
         [HttpGet("GetFuelTypes")]
-        public async Task<IActionResult> GetFuelTypes()
+        public async Task<IActionResult> GetFuelTypeDtos()
         {
-            var result = await _fuelType.GetFuelTypes();
+            var result = await _fuelTypeService.GetFuelTypeDtos();
             return CreateResponse(result);
         }
-
     }
 }

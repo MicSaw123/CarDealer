@@ -2,7 +2,6 @@
 using CarDealer.Domain.Entities.Base;
 using CarDealer.Domain.Entities.Cars;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarDealer.Domain.Entities.Lisitngs
 {
@@ -17,7 +16,6 @@ namespace CarDealer.Domain.Entities.Lisitngs
         [Required]
         public string FirstRegistrationDate { get; set; } = string.Empty;
 
-        [NotMapped]
         public Country CountryOfOrigin { get; set; }
 
         [Required]
@@ -27,7 +25,6 @@ namespace CarDealer.Domain.Entities.Lisitngs
 
         public int PreviouslyDamagedId { get; set; }
 
-        [NotMapped]
         public PreviouslyDamaged PreviouslyDamaged { get; set; }
     }
 }

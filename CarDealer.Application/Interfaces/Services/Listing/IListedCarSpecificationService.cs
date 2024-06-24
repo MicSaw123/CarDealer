@@ -1,14 +1,13 @@
-﻿using CarDealer.Domain.Entities.Lisitngs;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto;
+using CarDealer.Application.DataTransferObjects.Dtos.Listing.GetListingsDto;
 
 namespace CarDealer.Application.Interfaces.Services.Listing
 {
     public interface IListedCarSpecificationService
     {
-        Task<RequestResult<IEnumerable<ListedCarSpecification>>> GetListedCarSpecifications();
+        Task<RequestResult<GetListedCarSpecificationsDto>> GetListedCarSpecificationById(int id);
 
-        Task<RequestResult<ListedCarSpecification>> GetListedCarSpecificationById(int id);
-
-        Task<RequestResult> AddListedCarSpecification(ListedCarSpecification listedCarSpecification);
+        Task<RequestResult> AddListedCarSpecification(AddListedCarSpecificationDto listedCarSpecification);
 
         Task<RequestResult> DeleteListedCarSpecification(int id);
     }

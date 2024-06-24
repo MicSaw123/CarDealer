@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarDealer.Domain.Entities.Base;
 
 namespace CarDealer.Application.DataTransferObjects.Dtos.Address
 {
-    internal class CountryDto
+    public class CountryDto : BaseEntity
     {
+        public string Name { get; set; } = string.Empty;
     }
 }

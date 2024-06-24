@@ -1,10 +1,10 @@
-﻿using CarDealer.Domain.Entities.Cars;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Cars;
 
 namespace CarDealer.Application.Interfaces.Services.Cars
 {
     public interface ICarConditionService
     {
-        public Task<RequestResult<IEnumerable<CarCondition>>> GetCarConditions();
+        public Task<RequestResult<IEnumerable<CarConditionDto>>> GetCarConditions();
 
     }
 }

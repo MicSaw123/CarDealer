@@ -1,6 +1,6 @@
-﻿using CarDealer.Application.Interfaces.Services.Listing;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto;
+using CarDealer.Application.Interfaces.Services.Listing;
 using CarDealer.Controllers.Base;
-using CarDealer.Domain.Entities.Lisitngs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealer.Controllers.Listing
@@ -16,15 +16,8 @@ namespace CarDealer.Controllers.Listing
             _listedCarSpecificationService = listedCarSpecificationService;
         }
 
-        [HttpGet("GetListedCarSpecifications")]
-        public async Task<IActionResult> GetAllListedCarSpecifications()
-        {
-            var result = await _listedCarSpecificationService.GetListedCarSpecifications();
-            return CreateResponse(result);
-        }
-
         [HttpPost("AddListedCarSpecification")]
-        public async Task<IActionResult> AddListedCarSpecification(ListedCarSpecification entity)
+        public async Task<IActionResult> AddListedCarSpecification(AddListedCarSpecificationDto entity)
         {
             var result = await _listedCarSpecificationService.AddListedCarSpecification(entity);
             return CreateResponse(result);
@@ -34,6 +27,13 @@ namespace CarDealer.Controllers.Listing
         public async Task<IActionResult> DeleteListedCarSpecification(int id)
         {
             var result = await _listedCarSpecificationService.DeleteListedCarSpecification(id);
+            return CreateResponse(result);
+        }
+
+        [HttpGet("GetListedCarSpecificationById")]
+        public async Task<IActionResult> GetListedCarSpecificationById(int id)
+        {
+            var result = await _listedCarSpecificationService.GetListedCarSpecificationById(id);
             return CreateResponse(result);
         }
     }

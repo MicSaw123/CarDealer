@@ -1,6 +1,7 @@
-﻿using CarDealer.Application.Interfaces.Repositories.Address;
+﻿using AutoMapper;
+using CarDealer.Application.DataTransferObjects.Dtos.Address;
+using CarDealer.Application.Interfaces.Repositories.Address;
 using CarDealer.Application.Interfaces.Services.Address;
-using CarDealer.Domain.Entities.Address;
 using CarDealer.Domain.Errors;
 
 namespace CarDealer.Application.Services.Address
@@ -9,41 +10,36 @@ namespace CarDealer.Application.Services.Address
     {
         private readonly ICountryRepository _countryRepository;
         private readonly ICityRepository _cityRepository;
+        private readonly IMapper _mapper;
 
-        public AddressService(ICountryRepository countryRepository, ICityRepository cityRepository)
+        public AddressService(ICountryRepository countryRepository, ICityRepository cityRepository, IMapper mapper)
         {
             _cityRepository = cityRepository;
+            _mapper = mapper;
             _countryRepository = countryRepository;
         }
-        public async Task<RequestResult<IEnumerable<Country>>> GetCountries()
+        public async Task<RequestResult<IEnumerable<CountryDto>>> GetCountries()
         {
             var countries = await _countryRepository.GetAllAsync();
+            IEnumerable<CountryDto> countryDtos = _mapper.Map<IEnumerable<CountryDto>>(countries);
             if (countries is null)
             {
-                return RequestResult<IEnumerable<Country>>.Failure(Error.ErrorUnknown);
+                return RequestResult<IEnumerable<CountryDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<IEnumerable<Country>>.Success(countries);
+            return RequestResult<IEnumerable<CountryDto>>.Success(countryDtos);
         }
 
-        public async Task<RequestResult<IEnumerable<City>>> GetCityByCountryId(int countryId, CancellationToken cancellationToken = default)
+        public async Task<RequestResult<IEnumerable<CityDto>>> GetCityByCountryId(int countryId, CancellationToken cancellationToken = default)
         {
             var cities = await _cityRepository.GetCitiesByCountryIdAsync(countryId, cancellationToken);
-            if (cities is null)
+            IEnumerable<CityDto> cityDtos = _mapper.Map<IEnumerable<CityDto>>(cities);
+            if (cityDtos is null)
             {
-                return RequestResult<IEnumerable<City>>.Failure(Error.ErrorUnknown);
+                return RequestResult<IEnumerable<CityDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<IEnumerable<City>>.Success(cities);
+            return RequestResult<IEnumerable<CityDto>>.Success(cityDtos);
         }
 
-        public async Task<RequestResult<IEnumerable<City>>> GetZipCodeByCityId(int cityId, CancellationToken cancellationToken = default)
-        {
-            var zipCode = await _cityRepository.GetZipCodesByCityIdAsync(cityId, cancellationToken);
-            if (zipCode is null)
-            {
-                return RequestResult<IEnumerable<City>>.Failure(Error.ErrorUnknown);
-            }
-            return RequestResult<IEnumerable<City>>.Success(zipCode);
-        }
 
     }
 }

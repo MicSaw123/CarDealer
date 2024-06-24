@@ -17,11 +17,12 @@ namespace CarDealer.Controllers.Cars
         {
             _manufacturerService = manufacturerService;
         }
+
         [AllowAnonymous]
         [HttpGet("GetManufacturers")]
-        public async Task<IActionResult> GetManufacturers()
+        public async Task<IActionResult> GetManufacturerDtos()
         {
-            var result = await _manufacturerService.GetManufacturers();
+            var result = await _manufacturerService.GetManufacturerDtos();
             return CreateResponse(result);
         }
     }

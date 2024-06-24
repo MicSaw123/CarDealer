@@ -18,9 +18,9 @@ namespace CarDealer.Controllers.Cars
         }
 
         [HttpGet("GetModelsByManufacturerId")]
-        public async Task<IActionResult> GetModelsByManufacturerIdAsync(int manufacturerId, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetModelDtosByManufacturerId(int manufacturerId, CancellationToken cancellationToken = default)
         {
-            var result = await _modelService.GetModelsByManufacturerIdAsync(manufacturerId, cancellationToken);
+            var result = await _modelService.GetModelDtosByManufacturerId(manufacturerId, cancellationToken);
             return CreateResponse(result);
         }
     }

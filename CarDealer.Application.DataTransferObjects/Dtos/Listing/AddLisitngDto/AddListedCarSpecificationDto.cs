@@ -1,6 +1,8 @@
-﻿namespace CarDealer.Application.DataTransferObjects.Dtos.Listing
+﻿using CarDealer.Domain.Entities.Base;
+
+namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto
 {
-    public class ListedCarSpecificationDto
+    public class AddListedCarSpecificationDto : BaseEntity
     {
         public int CarTypeId { get; set; }
 
