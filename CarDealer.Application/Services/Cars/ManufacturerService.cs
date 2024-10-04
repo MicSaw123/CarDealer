@@ -21,12 +21,14 @@ namespace CarDealer.Application.Services.Cars
         public async Task<RequestResult<IEnumerable<ManufacturerDto>>> GetManufacturerDtos()
         {
             var manufacturers = await _manufacturerRepository.GetAllAsync();
-            IEnumerable<ManufacturerDto> manufacturerDtos = _mapper.Map<IEnumerable<ManufacturerDto>>(manufacturers);
+            IEnumerable<ManufacturerDto> manufacturerDtos =
+                _mapper.Map<IEnumerable<ManufacturerDto>>(manufacturers);
             if (manufacturerDtos is null)
             {
                 return RequestResult<IEnumerable<ManufacturerDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<IEnumerable<ManufacturerDto>>.Success(manufacturerDtos);
+            return RequestResult<IEnumerable<ManufacturerDto>>.
+                Success(manufacturerDtos.OrderBy(x => x.Name));
         }
     }
 }

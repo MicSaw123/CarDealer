@@ -4,6 +4,6 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Cars
 {
     public class DrivetrainDto : BaseEntity
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

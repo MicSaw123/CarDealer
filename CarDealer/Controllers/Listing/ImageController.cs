@@ -29,10 +29,24 @@ namespace CarDealer.Controllers.Listing
             return CreateResponse(result);
         }
 
+        [HttpPost("UploadImagesToExistingFTPDirectory")]
+        public async Task<IActionResult> UploadImagesToExistingFTPDirectory(List<IFormFile> images, string dirName)
+        {
+            var result = await _imageService.UploadImagesToExistingFTPDirectory(images, dirName);
+            return CreateResponse(result);
+        }
+
         [HttpDelete("DeleteImageFromFTP")]
         public async Task<IActionResult> DeleteImageFromFtp(string directoryName, string fileName)
         {
             var result = await _imageService.DeleteImageFromFTP(directoryName, fileName);
+            return CreateResponse(result);
+        }
+
+        [HttpDelete("DeleteListingFolder")]
+        public async Task<IActionResult> DeleteListingFolder(string dirName)
+        {
+            var result = await _imageService.DeleteListingFolder(dirName);
             return CreateResponse(result);
         }
     }

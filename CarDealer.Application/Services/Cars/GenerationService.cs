@@ -21,7 +21,7 @@ namespace CarDealer.Application.Services.Cars
         {
             var generationsByModelId = await _generationRepository.GetGenerationByModelIdAsync(modelId, cancellationToken);
             IEnumerable<GenerationDto> generationDtos = _mapper.Map<IEnumerable<GenerationDto>>(generationsByModelId);
-            if (generationsByModelId is null)
+            if (generationDtos is null)
             {
                 return RequestResult<IEnumerable<GenerationDto>>.Failure(Error.ErrorUnknown);
             }

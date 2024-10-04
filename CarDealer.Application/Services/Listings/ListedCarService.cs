@@ -47,21 +47,21 @@ namespace CarDealer.Application.Services.Listings
             return RequestResult.Success();
         }
 
-        public async Task<RequestResult<GetListedCarsDto>> GetListedCarById(int id)
+        public async Task<RequestResult<GetListedCarDto>> GetListedCarById(int id)
         {
             var includes = new List<Expression<Func<ListedCar, object>>>();
             includes.Add(x => x.CarColor);
             includes.Add(x => x.CarCondition);
             includes.Add(x => x.ListedCarSpecification);
             var listedCar = await _listedCarRepository.GetByIdAsync(id, includes);
-            var listedCarDto = _mapper.Map<GetListedCarsDto>(listedCar);
+            var listedCarDto = _mapper.Map<GetListedCarDto>(listedCar);
             var listedCarSpecification = await _listedCarSpecificationService.GetListedCarSpecificationById(listedCarDto.ListedCarSpecificationId);
             listedCarDto.ListedCarSpecification = listedCarSpecification.Result;
             if (listedCarDto is null)
             {
-                return RequestResult<GetListedCarsDto>.Failure(Error.ErrorUnknown);
+                return RequestResult<GetListedCarDto>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<GetListedCarsDto>.Success(listedCarDto);
+            return RequestResult<GetListedCarDto>.Success(listedCarDto);
         }
     }
 }

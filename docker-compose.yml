@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  cardealer.db: 
+    image: mssql:latest
+    container_name: cardealer-db
+    ports:
+    - 5432:5432 
+    volumes: 
+    - ./.containers/db:/var/lib/mssql/data
+  cardealer:
+    image: ${DOCKER_REGISTRY-}cardealer
+    build:
+      context: .
+      dockerfile: CarDealer/Dockerfile

@@ -8,6 +8,6 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Cars
 
         public int ManufacturerId { get; set; }
 
-        public ManufacturerDto Manufacturer { get; set; }
+        public ManufacturerDto Manufacturer { get; set; } = new ManufacturerDto();
     }
 }

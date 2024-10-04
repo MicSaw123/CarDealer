@@ -21,6 +21,8 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.GetBasicProperties
 
         public IEnumerable<ManufacturerDto> Manufacturer { get; set; }
 
+        public IEnumerable<PreviouslyDamagedDto> PreviouslyDamaged { get; set; }
+
         public IEnumerable<DrivetrainDto> Drivetrain { get; set; }
     }
 }

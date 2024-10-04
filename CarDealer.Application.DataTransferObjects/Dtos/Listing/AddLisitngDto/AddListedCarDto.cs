@@ -5,7 +5,6 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto
     public class AddListedCarDto : BaseEntity
     {
         public string LicensePlate { get; set; } = string.Empty;
-
         public int PreviousOwners { get; set; }
 
         public int CarConditionId { get; set; }
@@ -14,9 +13,8 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto
 
         public int CarColorId { get; set; }
 
-        public int ListedCarSpecificationDtoId { get; set; }
-
         public AddListedCarSpecificationDto ListedCarSpecification { get; set; }
+            = new AddListedCarSpecificationDto();
 
     }
 }

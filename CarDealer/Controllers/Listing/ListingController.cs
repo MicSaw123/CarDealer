@@ -1,4 +1,6 @@
 ﻿using CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto;
+using CarDealer.Application.DataTransferObjects.Dtos.Listing.SearchListingsDto;
+using CarDealer.Application.DataTransferObjects.Dtos.Listing.UpdateListingDto;
 using CarDealer.Application.Interfaces.Services.Listing;
 using CarDealer.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
@@ -16,15 +18,8 @@ namespace CarDealer.Controllers.Listing
             _listingService = listingService;
         }
 
-        [HttpGet("GetListings")]
-        public async Task<IActionResult> GetAllListings()
-        {
-            var result = await _listingService.GetAllListings();
-            return CreateResponse(result);
-        }
-
         [HttpPost("AddListing")]
-        public async Task<IActionResult> AddListing(AddListingDto listingDto)
+        public async Task<IActionResult> AddListing([FromBody] AddListingDto listingDto)
         {
             return CreateResponse(await _listingService.AddListing(listingDto));
         }
@@ -51,10 +46,27 @@ namespace CarDealer.Controllers.Listing
         }
 
         [HttpPut("UpdateListing")]
-        public async Task<IActionResult> UpdateListing(AddListingDto addListingDto)
+        public async Task<IActionResult> UpdateListing([FromBody] UpdateListingDto updateListingDto, string path)
         {
-            var result = await _listingService.UpdateListing(addListingDto);
-            return CreateResponse(result);
+            return CreateResponse(await _listingService.UpdateListing(updateListingDto, path));
+        }
+
+        [HttpGet("GetActiveListings")]
+        public async Task<IActionResult> GetActiveListings()
+        {
+            return CreateResponse(await _listingService.GetActiveListings());
+        }
+
+        [HttpPut("ChangeListingStatus")]
+        public async Task<IActionResult> ChangeListingStatus([FromBody] int id, bool status)
+        {
+            return CreateResponse(await _listingService.ChangeListingStatus(id, status));
+        }
+
+        [HttpPost("FilterListings")]
+        public async Task<IActionResult> FilterListings(int sortingId, [FromBody] ListingsSearchConditions searchListingsDto)
+        {
+            return CreateResponse(await _listingService.FilterListings(sortingId, searchListingsDto));
         }
     }
 }

@@ -9,5 +9,8 @@ namespace CarDealer.Application.Interfaces.Services.Identity
 
         Task<RequestResult<LoginResponseDto>> Login(LoginDto loginDto);
 
+        Task<RequestResult<UserInfoDto>> GetUserInfoById(int id);
+
+        Task<RequestResult> UpdateAccountDetails(UserInfoDto userInfoDto, CancellationToken cancellation);
     }
 }

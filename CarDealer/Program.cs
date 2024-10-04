@@ -95,3 +95,5 @@ app.UseAuthorization();
 app.UseMiddleware<TokenManagerMiddleware>();
 app.MapControllers();
 app.Run();
+
+public partial class Program { }

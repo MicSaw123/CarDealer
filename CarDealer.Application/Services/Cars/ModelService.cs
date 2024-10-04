@@ -25,7 +25,7 @@ namespace CarDealer.Application.Services.Cars
             {
                 return RequestResult<IEnumerable<ModelDto>>.Failure(Error.ErrorUnknown);
             }
-            return RequestResult<IEnumerable<ModelDto>>.Success(modelDtos);
+            return RequestResult<IEnumerable<ModelDto>>.Success(modelDtos.OrderBy(x => x.Name));
         }
     }
 }

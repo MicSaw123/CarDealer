@@ -42,5 +42,17 @@ namespace CarDealer.Controllers.Identity
             await _tokenManager.DeactivateCurrentTokenAsync();
             return NoContent();
         }
+
+        [HttpGet("GetUserInfoById")]
+        public async Task<IActionResult> GetUserInfoById(int id)
+        {
+            return CreateResponse(await _identityService.GetUserInfoById(id));
+        }
+
+        [HttpPut("UpdateAccountDetails")]
+        public async Task<IActionResult> UpdateAccountDetails([FromBody] UserInfoDto userInfoDto, CancellationToken cancellation)
+        {
+            return CreateResponse(await _identityService.UpdateAccountDetails(userInfoDto, cancellation));
+        }
     }
 }

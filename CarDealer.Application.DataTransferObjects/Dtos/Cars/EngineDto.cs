@@ -4,7 +4,7 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Cars
 {
     public class EngineDto : BaseEntity
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         public int Cylinders { get; set; }
 
@@ -16,6 +16,6 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Cars
 
         public int FuelTypeId { get; set; }
 
-        public FuelTypeDto FuelType { get; set; }
+        public FuelTypeDto FuelType { get; set; } = new FuelTypeDto();
     }
 }

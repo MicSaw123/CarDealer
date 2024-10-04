@@ -23,21 +23,9 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Identity
         public string ConfirmedPassword { get; set; } = string.Empty;
 
         [Required]
-
-        public string Country { get; set; } = string.Empty;
-
-        [Required]
-
-        public string City { get; set; } = string.Empty;
+        public int CityId { get; set; }
 
         [Required]
-
-        public string ZipCode { get; set; } = string.Empty;
-
-        [Required]
-
-        public string AccountType { get; set; } = string.Empty;
-
-
+        public int AccountTypeId { get; set; }
     }
 }

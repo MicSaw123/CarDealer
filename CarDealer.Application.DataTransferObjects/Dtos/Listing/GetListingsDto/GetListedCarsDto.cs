@@ -3,7 +3,7 @@ using CarDealer.Domain.Entities.Base;
 
 namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.GetListingsDto
 {
-    public class GetListedCarsDto : BaseEntity
+    public class GetListedCarDto : BaseEntity
     {
         public string LicensePlate { get; set; }
 

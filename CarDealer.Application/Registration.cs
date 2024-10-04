@@ -1,6 +1,7 @@
 ﻿using CarDealer.Application.Interfaces.Repositories.Address;
 using CarDealer.Application.Interfaces.Repositories.Cars;
 using CarDealer.Application.Interfaces.Repositories.Listings;
+using CarDealer.Application.Interfaces.Repositories.Transaction;
 using CarDealer.Application.Interfaces.Services.Address;
 using CarDealer.Application.Interfaces.Services.Cars;
 using CarDealer.Application.Interfaces.Services.GetBasicProperties;
@@ -9,6 +10,7 @@ using CarDealer.Application.Interfaces.Services.Listing;
 using CarDealer.Application.Repositories.Address;
 using CarDealer.Application.Repositories.Cars;
 using CarDealer.Application.Repositories.Listings;
+using CarDealer.Application.Repositories.Transaction;
 using CarDealer.Application.Services.Address;
 using CarDealer.Application.Services.AutoMapper;
 using CarDealer.Application.Services.Cars;
@@ -49,6 +51,7 @@ namespace CarDealer.Application
             services.AddScoped<ICarColorRepository, CarColorRepository>();
             services.AddScoped<ICarConditionRepository, CarConditonRepository>();
             services.AddScoped<IPreviouslyDamagedRepository, PreviouslyDamagedRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
         }
 
         private static void AddServices(IServiceCollection services)
@@ -56,6 +59,7 @@ namespace CarDealer.Application
             services.AddDistributedMemoryCache();
             services.AddSingleton<ITokenManagerService, TokenManagerService>();
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IAccountTypeService, AccountTypeService>();
             services.AddScoped<IGenerationService, GenerationService>();
             services.AddScoped<IModelService, ModelService>();
             services.AddScoped<IManufacturerService, ManufacturerService>();

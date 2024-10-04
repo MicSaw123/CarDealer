@@ -33,6 +33,7 @@ namespace CarDealer.Database.Context
             var doorQuantitiesSeed = new DoorQuantitiesSeed();
             var enginesSeed = new EnginesSeed();
             var citiesSeed = new CitiesSeed();
+            var accountTypesSeed = new AccountTypesSeed();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Manufacturer>().HasData(manufacturersSeed.GetManufacturers());
             modelBuilder.Entity<Model>().HasData(modelsSeed.GetModels());
@@ -48,42 +49,26 @@ namespace CarDealer.Database.Context
             modelBuilder.Entity<Engine>().HasData(enginesSeed.GetEngines());
             modelBuilder.Entity<DoorQuantity>().HasData(doorQuantitiesSeed.GetDoorQuantities());
             modelBuilder.Entity<City>().HasData(citiesSeed.GetCities());
+            modelBuilder.Entity<AccountType>().HasData(accountTypesSeed.GetAccountTypes());
         }
-
-        public DbSet<CarType> CarTypes { get; set; }
-
-        public DbSet<Engine> Engines { get; set; }
-
-        public DbSet<FuelType> FuelTypes { get; set; }
-
-        public DbSet<Generation> Generations { get; set; }
-
-        public DbSet<Manufacturer> Manufacturers { get; set; }
-
-        public DbSet<Model> Models { get; set; }
-
-        public DbSet<Transmission> Transmissions { get; set; }
-
-        public DbSet<Country> Countries { get; set; }
-
         public DbSet<City> Cities { get; set; }
-
-        public DbSet<Listing> Listings { get; set; }
-
+        public DbSet<Country> Countries { get; set; }
         public DbSet<CarColor> CarColors { get; set; }
-
-        public DbSet<DoorQuantity> DoorQuantity { get; set; }
-
-        public DbSet<Drivetrain> Drivetrains { get; set; }
-
         public DbSet<CarCondition> CarConditions { get; set; }
-
-        public DbSet<IdentifiedVehicles> IdentifiedVehicles { get; set; }
-
-        public DbSet<ListedCar> ListedCars { get; set; }
-
-        public DbSet<ListedCarSpecification> ListedCarSpecification { get; set; }
-
+        public DbSet<CarType> CarTypes { get; set; }
+        public DbSet<DoorQuantity> DoorQuantity { get; set; }
+        public DbSet<Drivetrain> Drivetrains { get; set; }
+        public DbSet<Engine> Engines { get; set; }
+        public DbSet<FuelType> FuelTypes { get; set; }
+        public DbSet<Generation> Generations { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Model> Models { get; set; }
+        public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<PreviouslyDamaged> PreviouslyDamaged { get; set; }
+        public DbSet<Transmission> Transmissions { get; set; }
+        public DbSet<IdentifiedVehicles> IdentifiedVehicles { get; set; }
+        public DbSet<ListedCar> ListedCars { get; set; }
+        public DbSet<ListedCarSpecification> ListedCarSpecification { get; set; }
+        public DbSet<Listing> Listings { get; set; }
     }
 }

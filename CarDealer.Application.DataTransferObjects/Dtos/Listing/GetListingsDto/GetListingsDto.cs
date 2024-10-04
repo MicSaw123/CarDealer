@@ -1,4 +1,5 @@
-﻿using CarDealer.Domain.Entities.Base;
+﻿using CarDealer.Application.DataTransferObjects.Dtos.Image;
+using CarDealer.Domain.Entities.Base;
 
 namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.GetListingsDto
 {
@@ -8,7 +9,13 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.GetListingsDto
 
         public string Title { get; set; }
 
+        public int Price { get; set; }
+
         public string Description { get; set; }
+
+        public DateTime DateOfCreation { get; set; }
+
+        public bool IsActive { get; set; }
 
         public int IdentifiedVehiclesId { get; set; }
 
@@ -16,8 +23,8 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.GetListingsDto
 
         public GetIdentifiedVehiclesDto IdentifiedVehicles { get; set; }
 
-        public GetListedCarsDto ListedCar { get; set; }
+        public GetListedCarDto ListedCar { get; set; }
 
-        public List<byte[]> Images { get; set; }
+        public List<ImageDto> Images { get; set; }
     }
 }

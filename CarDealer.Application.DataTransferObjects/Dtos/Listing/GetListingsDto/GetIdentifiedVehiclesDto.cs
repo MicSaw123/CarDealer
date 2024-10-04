@@ -12,7 +12,7 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.GetListingsDto
 
         public string FirstRegistrationDate { get; set; }
 
-        public int CountryId { get; set; }
+        public int CountryOfOriginId { get; set; }
 
         public int PreviouslyDamagedId { get; set; }
 

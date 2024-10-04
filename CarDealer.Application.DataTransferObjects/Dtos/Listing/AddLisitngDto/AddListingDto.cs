@@ -1,19 +1,25 @@
 ﻿using CarDealer.Domain.Entities.Base;
-using Microsoft.AspNetCore.Http;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto
 {
     public class AddListingDto : BaseEntity
     {
         public int SellerId { get; set; }
+
         public string Title { get; set; } = string.Empty;
+
+        public int Price { get; set; }
 
         public string Description { get; set; } = string.Empty;
 
-        public AddIdentifiedVehiclesDto IdentifiedVehicles { get; set; }
+        [AllowNull]
+        public AddIdentifiedVehiclesDto IdentifiedVehicles { get; set; } = new AddIdentifiedVehiclesDto();
 
-        public AddListedCarDto ListedCar { get; set; }
+        [AllowNull]
+        public AddListedCarDto ListedCar { get; set; } = new AddListedCarDto();
 
-        public List<IFormFile> Images { get; set; }
+        [AllowNull]
+        public List<byte[]> Images { get; set; } = new List<byte[]>();
     }
 }

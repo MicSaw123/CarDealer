@@ -5,7 +5,7 @@ namespace CarDealer.Application.Interfaces.Services.Listing
 {
     public interface IListedCarService
     {
-        Task<RequestResult<GetListedCarsDto>> GetListedCarById(int id);
+        Task<RequestResult<GetListedCarDto>> GetListedCarById(int id);
 
         Task<RequestResult> AddListedCar(AddListedCarDto listedCar);
 

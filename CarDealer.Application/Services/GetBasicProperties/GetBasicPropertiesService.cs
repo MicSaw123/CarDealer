@@ -16,11 +16,12 @@ namespace CarDealer.Application.Services.GetBasicProperties
         private readonly IAddressService _addressService;
         private readonly IManufacturerService _manufacturerService;
         private readonly IDrivetrainService _drivetrainService;
+        private readonly IPreviouslyDamagedService _previouslyDamagedService;
 
         public GetBasicPropertiesService(IFuelTypeService fuelTypeService, ICarColorService carColorService,
             ICarConditionService carConditionService, ICarTypeService carTypeService, ITransmissionService transmissionService,
             IDoorQuantityService doorQuantityService, IAddressService addressService, IManufacturerService manufacturerService,
-            IDrivetrainService drivetrainService)
+            IDrivetrainService drivetrainService, IPreviouslyDamagedService previouslyDamagedService)
         {
             _fuelTypeService = fuelTypeService;
             _carColorService = carColorService;
@@ -31,6 +32,7 @@ namespace CarDealer.Application.Services.GetBasicProperties
             _addressService = addressService;
             _manufacturerService = manufacturerService;
             _drivetrainService = drivetrainService;
+            _previouslyDamagedService = previouslyDamagedService;
         }
 
         public async Task<RequestResult<GetBasicPropertiesDto>> GetBasicProperties()
@@ -45,6 +47,7 @@ namespace CarDealer.Application.Services.GetBasicProperties
             var countries = await _addressService.GetCountries();
             var manufacturers = await _manufacturerService.GetManufacturerDtos();
             var drivetrains = await _drivetrainService.GetDrivetrains();
+            var previouslyDamaged = await _previouslyDamagedService.GetPreviouslyDamaged();
             basicPropertyDto.FuelType = fuelTypes.Result;
             basicPropertyDto.DoorQuantity = doorQuantities.Result;
             basicPropertyDto.Country = countries.Result;
@@ -54,6 +57,7 @@ namespace CarDealer.Application.Services.GetBasicProperties
             basicPropertyDto.CarCondition = carConditions.Result;
             basicPropertyDto.Manufacturer = manufacturers.Result;
             basicPropertyDto.Drivetrain = drivetrains.Result;
+            basicPropertyDto.PreviouslyDamaged = previouslyDamaged.Result;
             return RequestResult<GetBasicPropertiesDto>.Success(basicPropertyDto);
         }
     }

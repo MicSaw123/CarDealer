@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarDealer.Database.Migrations
 {
     [DbContext(typeof(CarDealerContext))]
-    [Migration("20240624191650_init")]
-    partial class init
+    [Migration("20240925182429_init2")]
+    partial class init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -755,6 +755,35 @@ namespace CarDealer.Database.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CarDealer.Domain.Entities.Identity.AccountType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccountTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Private"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Company"
+                        });
+                });
+
             modelBuilder.Entity("CarDealer.Domain.Entities.Identity.CarDealerRole", b =>
                 {
                     b.Property<int>("Id")
@@ -794,6 +823,12 @@ namespace CarDealer.Database.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccountTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -841,6 +876,8 @@ namespace CarDealer.Database.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccountTypeId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -977,8 +1014,8 @@ namespace CarDealer.Database.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("DateOfCreation")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DateOfCreation")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -991,6 +1028,9 @@ namespace CarDealer.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("ListedCarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<int>("SellerId")
@@ -1156,6 +1196,17 @@ namespace CarDealer.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Manufacturer");
+                });
+
+            modelBuilder.Entity("CarDealer.Domain.Entities.Identity.CarDealerUser", b =>
+                {
+                    b.HasOne("CarDealer.Domain.Entities.Identity.AccountType", "AccountType")
+                        .WithMany()
+                        .HasForeignKey("AccountTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AccountType");
                 });
 
             modelBuilder.Entity("CarDealer.Domain.Entities.Lisitngs.IdentifiedVehicles", b =>

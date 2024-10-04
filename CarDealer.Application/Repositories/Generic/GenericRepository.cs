@@ -1,6 +1,8 @@
 ﻿using CarDealer.Application.Interfaces.Database;
 using CarDealer.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Data;
 using System.Linq.Expressions;
 
 namespace CarDealer.Application.Repositories.Generic
@@ -61,6 +63,12 @@ namespace CarDealer.Application.Repositories.Generic
         public void Update(TEntity entity)
         {
             _entities.Update(entity);
+        }
+
+        public IDbTransaction BeginTransaction()
+        {
+            var transaction = _context.Database.BeginTransaction();
+            return transaction.GetDbTransaction();
         }
     }
 }

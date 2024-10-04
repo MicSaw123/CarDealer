@@ -17,16 +17,16 @@ namespace CarDealer.Application.DataTransferObjects.Dtos.Listing.GetListingsDto
 
         public int DrivetrainId { get; set; }
 
-        public CarTypeDto CarType { get; set; }
+        public CarTypeDto CarType { get; set; } = new CarTypeDto();
 
-        public DoorQuantityDto DoorQuantity { get; set; }
+        public DoorQuantityDto DoorQuantity { get; set; } = new DoorQuantityDto();
 
-        public GenerationDto Generation { get; set; }
+        public GenerationDto Generation { get; set; } = new GenerationDto();
 
-        public EngineDto Engine { get; set; }
+        public EngineDto Engine { get; set; } = new EngineDto();
 
-        public TransmissionDto Transmission { get; set; }
+        public TransmissionDto Transmission { get; set; } = new TransmissionDto();
 
-        public DrivetrainDto Drivetrain { get; set; }
+        public DrivetrainDto Drivetrain { get; set; } = new DrivetrainDto();
     }
 }
