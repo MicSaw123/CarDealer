@@ -98,7 +98,8 @@ namespace CarDealer.Application.Services.Listings
             }
         }
 
-        public async Task<RequestResult> UploadImagesToExistingFTPDirectory(List<IFormFile> images, string dirName)
+        public async Task<RequestResult> UploadImagesToExistingFTPDirectory(List<IFormFile> images,
+            string dirName)
         {
             if (images != null)
             {

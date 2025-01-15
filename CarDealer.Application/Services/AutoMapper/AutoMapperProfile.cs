@@ -3,7 +3,6 @@ using CarDealer.Application.DataTransferObjects.Dtos.Address;
 using CarDealer.Application.DataTransferObjects.Dtos.Cars;
 using CarDealer.Application.DataTransferObjects.Dtos.Identity;
 using CarDealer.Application.DataTransferObjects.Dtos.Listing.AddLisitngDto;
-using CarDealer.Application.DataTransferObjects.Dtos.Listing.FilterListingsDto;
 using CarDealer.Application.DataTransferObjects.Dtos.Listing.GetListingsDto;
 using CarDealer.Application.DataTransferObjects.Dtos.Listing.UpdateListingDto;
 using CarDealer.Domain.Entities.Address;
@@ -31,8 +30,6 @@ namespace CarDealer.Application.Services.AutoMapper
             CreateMap<UpdateListedCarSpecificationDto, ListedCarSpecification>();
             CreateMap<UpdateListedCarDto, ListedCar>();
             CreateMap<UpdateListingDto, Listing>();
-
-            CreateMap<GetListingsDto, FilterListingsDto>().ReverseMap();
 
             CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
             CreateMap<Model, ModelDto>().ReverseMap();
