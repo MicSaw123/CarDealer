@@ -1,6 +1,0 @@
-@CarDealer.Identity_HostAddress = http://localhost:5149
-
-GET {{CarDealer.Identity_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
